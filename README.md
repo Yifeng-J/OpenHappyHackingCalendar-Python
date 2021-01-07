@@ -1,0 +1,2 @@
+# OpenHappyHackingCalendar-Python
+《编程日历》的Python实现版本，基于OpenHappyHackingCalendar项目改编
