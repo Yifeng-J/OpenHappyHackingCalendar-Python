@@ -35,4 +35,4 @@ PDF样式展示：[link](./Calendar-2020.pdf)
 
 下载程序→安装好环境→运行index.py
 
-输出为类似`Calendar-2020.html`的文件
+输出为类似`Calendar-2021.html`的文件
