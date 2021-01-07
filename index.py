@@ -319,7 +319,7 @@ for j in range(0, len(weekly)):
     calContent += weekly[j]
 cal = calTemplate.replace('{{page}}', calContent)
 
-output_name='Calendar-'+str(YEAR)
+output_name='Calendar-'+str(YEAR)+'.html'
 out = open(output_name, 'w', encoding='utf8')
 out.write(cal)
 out.close()
