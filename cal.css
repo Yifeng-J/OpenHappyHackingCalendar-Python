@@ -36,8 +36,7 @@ body {
     padding-bottom: 20mm;
 }
 
-.monthly table td:first-child,
-.monthly table td:last-child {
+.monthly table td:nth-last-child(-n+2) {
     color: #cc0000;
 }
 
@@ -193,6 +192,7 @@ body {
     width: 174.5mm;
     height: 41mm;
     position: absolute;
+    display: table;
     left: 17.5mm;
     bottom: 20mm;
     margin: 0;
@@ -209,8 +209,7 @@ body {
 
 .page ul.date li {
     list-style: none;
-    display: inline-block;
-    width: 29mm;
+    display: table-cell;
     height: 40mm;
     border-left: 0.5mm dotted gray;
     box-sizing: border-box;
@@ -218,7 +217,6 @@ body {
 }
 
 .page ul.date li:last-child {
-    width: 29.5mm;
     border-right: 0.5mm dotted gray;
 }
 
