@@ -239,6 +239,10 @@ body {
     text-align: center;
 }
 
+div.week.hide {
+    color: white;
+}
+
 @media print {
     html, body {
         width: 210mm;

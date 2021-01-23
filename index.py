@@ -286,6 +286,7 @@ for dateIndex in range(0, len(dates)):
             langIndex = langIndex + 1
 
     page = page.replace('{{week' + str(weekday + 1) + '}}', weeks[date.getWeek()])
+    page = page.replace('{{wclass' + str(weekday + 1) + '}}', '')
     page = page.replace(f'{{{{date{weekday + 1}}}}}',  # 此处用fstring时一定要注意{要进行转义
                         str(date.getMonth()).zfill(2) + "-" + str(date.getDay()).zfill(2))
     if (str(date.getMonth()).zfill(2) + str(date.getDay()).zfill(2)
@@ -308,10 +309,10 @@ for dateIndex in range(0, len(dates)):
 
     # 换页或者到12月的最后一天,需要将没有填入日期的空格清空
     if weekday == 6 or dateIndex == len(dates) - 1:
-        for i in range(0, 6):
-            page = page.replace(f'{{{{week{i + 1}}}}}', '&nbsp;&nbsp;&nbsp;')
+        for i in range(0, 7):
             page = page.replace(f'{{{{date{i + 1}}}}}', '')
             page = page.replace(f'{{{{ldate{i + 1}}}}}', '')
+            page = page.replace(f'{{{{wclass{i + 1}}}}}', 'hide')
         weekly.append(page)
         page = ''
         pageIndex += 1
