@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/earlyaccess/notosansscsliced.css);
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
 
 @page {
     size: A4;
@@ -25,9 +25,11 @@ body {
     width: 24mm;
     font-size: 1.6em;
     padding: 4mm;
-    display: inline-block;
+    /* display: inline-block; */
     box-sizing: border-box;
     text-align: right;
+    vertical-align: top;
+    text-align: center;
 }
 
 .monthly table tr:first-child td {
