@@ -4,6 +4,7 @@ from lunar_python import Solar
 import html
 import requests
 import ssl
+from urllib.parse import quote
 
 # 以json格式读取文件
 lang = open('./lang.json', 'r', encoding='utf8')
@@ -108,9 +109,9 @@ langIndex = 0
 while langIndex < len(lang_json):
     codeLang = lang_json[langIndex]
     try:
-        url = 'https://zh.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=' + \
-              codeLang[
-                  'desc']
+        url = 'https://zh.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&uselang=zh-cn&titles=' + \
+              quote(codeLang[
+                  'desc'], 'utf-8')
         # 请求头部
         headers = {
             'User-Agent':
