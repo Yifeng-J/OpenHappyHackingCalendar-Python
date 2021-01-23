@@ -272,8 +272,8 @@ for dateIndex in range(0, len(dates)):
 
             page = page.replace('{{desc}}', langs[langIndex]['descWiki'])
             if QR:
-                wiki_url = 'https://zh.wikipedia.org/wiki/' + langs[langIndex][
-                    'desc']
+                wiki_url = 'https://zh.wikipedia.org/wiki/' + quote(langs[langIndex][
+                    'desc'], 'utf-8')
                 # qr = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + wiki_url
                 qr = 'https://chart.apis.google.com/chart?chs=360x360&cht=qr&choe=UTF-8&chld=M|0&chl=' + wiki_url
             else:
