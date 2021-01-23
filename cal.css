@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC&family=Space+Mono&display=swap');
 
 @page {
     size: A4;
@@ -6,7 +6,7 @@
 }
 
 body {
-    font-family: 'Space Mono', monospace, 'Noto Sans SC Sliced';
+    font-family: 'Space Mono', monospace, 'Noto Serif SC' , 'Noto Sans SC Sliced';
     font-feature-settings: "liga" 0;
     font-size: 5mm;
 }
