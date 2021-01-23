@@ -173,7 +173,7 @@ for dateIndex in range(0, len(dates)):
             rows = '<tr>'
             # 一个月的第一天如果不是周日的话，那么前面需要加空白天
             for i in range(0, date.getWeek()):
-                rows = rows + '<td ></td>'
+                rows = rows + '<td></td>'
 
         # 如果是周日且不是月初，则换一行
         if date.getWeek() == 0 and date.getDay() != 1:
