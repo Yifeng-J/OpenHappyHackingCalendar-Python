@@ -9,14 +9,15 @@ PDF样式展示：[link](./Calendar-2021.pdf)
 
 ## 环境依赖
 
-本项目使用了以下几个Python第三方库：
+Python 3 (Python 3.9.1)
+
+本项目使用了以下几个Python第三方库（加粗者为需要另行安装）：
 
 - json
-- jsonpath
-- lunar(一个阴历/阳历转换库：[Link](http://6tail.cn/calendar/api.html#overview.html))
+- **jsonpath**
+- **lunar_python** (一个阴历/阳历转换库：[lunar](http://6tail.cn/calendar/api.html#overview.html))
 - html
-- requests
-- ssl
+- **requests**
 
 在测试过程中发现：需要电脑安装openssl。
 

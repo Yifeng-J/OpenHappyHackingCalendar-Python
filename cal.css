@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/earlyaccess/notosansscsliced.css);
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC&family=Space+Mono&JetBrains+Mono&display=swap');
 
 @page {
     size: A4;
@@ -6,7 +6,7 @@
 }
 
 body {
-    font-family: 'Space Mono', monospace, 'Noto Sans SC Sliced';
+    font-family: 'Space Mono', monospace, 'Noto Serif SC', 'Noto Sans SC Sliced';
     font-feature-settings: "liga" 0;
     font-size: 5mm;
 }
@@ -16,7 +16,7 @@ body {
 }
 
 .monthly table {
-    border-spacing:0;
+    border-spacing: 0;
     border-collapse: collapse;
     margin-top: 30mm;
 }
@@ -25,9 +25,10 @@ body {
     width: 24mm;
     font-size: 1.6em;
     padding: 4mm;
-    display: inline-block;
+    /* display: inline-block; */
     box-sizing: border-box;
-    text-align: right;
+    vertical-align: top;
+    text-align: center;
 }
 
 .monthly table tr:first-child td {
@@ -35,8 +36,7 @@ body {
     padding-bottom: 20mm;
 }
 
-.monthly table td:first-child,
-.monthly table td:last-child {
+.monthly table td:nth-last-child(-n+2) {
     color: #cc0000;
 }
 
@@ -67,8 +67,8 @@ body {
     left: 6mm;
     border-radius: 5mm;
     box-shadow: 0 10mm 0 #ccc,
-                0 50mm 0 #ccc,
-                0 90mm 0 #ccc;
+    0 50mm 0 #ccc,
+    0 90mm 0 #ccc;
 }
 
 .page.punched:after {
@@ -81,8 +81,8 @@ body {
     left: 6mm;
     border-radius: 5mm;
     box-shadow: 0 10mm 0 #ccc,
-                0 50mm 0 #ccc,
-                0 90mm 0 #ccc;
+    0 50mm 0 #ccc,
+    0 90mm 0 #ccc;
 }
 
 .page h1.title {
@@ -127,32 +127,31 @@ body {
 }
 
 .page pre {
-    margin-top: 30mm!important;
-    margin-left: 10mm!important;
-    white-space: pre-wrap!important;
-    word-break: break-word!important;
-    font-size: 0.8em!important;
-    background: transparent!important;
+    margin-top: 30mm !important;
+    margin-left: 10mm !important;
+    white-space: pre-wrap !important;
+    word-break: break-word !important;
+    font-size: 0.8em !important;
+    background: transparent !important;
     padding: 1em;
-    margin: .5em 0;
     overflow: auto;
 }
 
 .page code {
-    background: transparent!important;
-    white-space: pre-wrap!important;
-    word-break: break-word!important;
-    padding: 0!important;
+    background: transparent !important;
+    white-space: pre-wrap !important;
+    word-break: break-word !important;
+    padding: 0 !important;
 }
 
 .page pre, .page code {
     color: black;
-    text-shadow: none!important;
-    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-shadow: none !important;
+    font-family: 'JetBrains Mono', 'Ubuntu Mono', monospace;
     text-align: left;
     word-spacing: normal;
     word-wrap: normal;
-    line-height: 1.4em!important;
+    line-height: 1.4em !important;
     tab-size: 4;
     hyphens: none;
 }
@@ -193,6 +192,7 @@ body {
     width: 174.5mm;
     height: 41mm;
     position: absolute;
+    display: table;
     left: 17.5mm;
     bottom: 20mm;
     margin: 0;
@@ -209,8 +209,7 @@ body {
 
 .page ul.date li {
     list-style: none;
-    display: inline-block;
-    width: 29mm;
+    display: table-cell;
     height: 40mm;
     border-left: 0.5mm dotted gray;
     box-sizing: border-box;
@@ -218,7 +217,6 @@ body {
 }
 
 .page ul.date li:last-child {
-    width: 29.5mm;
     border-right: 0.5mm dotted gray;
 }
 
@@ -241,12 +239,16 @@ body {
     text-align: center;
 }
 
+div.week.hide {
+    color: white;
+}
+
 @media print {
     html, body {
-      width: 210mm;
-      height: 297mm;
+        width: 210mm;
+        height: 297mm;
     }
-    
+
     .page {
         margin: 0;
         border: initial;

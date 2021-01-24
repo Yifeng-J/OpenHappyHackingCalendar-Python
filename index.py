@@ -1,10 +1,10 @@
-import json
-import jsonpath
-from lunar_python import Solar
 import html
-import requests
-import ssl
+import json
 from urllib.parse import quote
+
+import jsonpath
+import requests
+from lunar_python import Solar
 
 # 以json格式读取文件
 lang = open('./lang.json', 'r', encoding='utf8')
@@ -65,22 +65,22 @@ for j in shortMonth:
 # 判断一个年份是否是闰年
 def isLeapYear(year):
     # 世纪年份能够被400整除为闰年
-    if (year % 100 == 0 and year % 400 == 0):
+    if year % 100 == 0 and year % 400 == 0:
         return True
     # 普通年份能被4整除为闰年
-    if (year % 100 != 0 and year % 4 == 0):
+    if year % 100 != 0 and year % 4 == 0:
         return True
     return False
 
 
 # 判断day是否是month的最后一天
 def isLastDayOfMonth(month, day):
-    if (month == 2 and isLeapYear(YEAR)):
+    if month == 2 and isLeapYear(YEAR):
         return day == leapDay
     return day == monthLastDayMapping[month]
 
 
-if (isLeapYear(YEAR)):
+if isLeapYear(YEAR):
     monthLastDayMapping[2] = leapDay
 else:
     monthLastDayMapping[2] = nonLeapYearFebLastDay
@@ -111,7 +111,7 @@ while langIndex < len(lang_json):
     try:
         url = 'https://zh.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&uselang=zh-cn&titles=' + \
               quote(codeLang[
-                  'desc'], 'utf-8')
+                        'desc'], 'utf-8')
         # 请求头部
         headers = {
             'User-Agent':
@@ -156,27 +156,31 @@ calContent = ''
 for dateIndex in range(0, len(dates)):
     date = dates[dateIndex]
 
-    if (date.getDay() == 1):
+    if date.getDay() == 1:
         newMonth.append(pageIndex)
 
     # 生成日历前面的单独月份
-    if (MONTHLY):
+    if MONTHLY:
         date_day = date.getDay()
         date_month = date.getMonth()
 
-        if (date_day == 1):
-            if (PUNCHED):
+        weekday = date.getWeek() - 1
+        if weekday == -1:
+            weekday = 6
+
+        if date_day == 1:
+            if PUNCHED:
                 table = monthlyTemplate.replace('{{pclass}}', 'page punched')
             else:
                 table = monthlyTemplate.replace('{{pclass}}', 'page')
             table = table.replace('{{month}}', months[date_month - 1])
             rows = '<tr>'
-            # 一个月的第一天如果不是周日的话，那么前面需要加空白天
-            for i in range(0, date.getWeek()):
+            # 一个月的第一天如果不是周一的话，那么前面需要加空白天
+            for i in range(0, weekday):
                 rows = rows + '<td></td>'
 
-        # 如果是周日且不是月初，则换一行
-        if (date.getWeek() == 0 and date.getDay() != 1):
+        # 如果是周一且不是月初，则换一行
+        if weekday == 0 and date.getDay() != 1:
             rows = rows + '<tr>'
 
         # 优先级顺序：节假日、节气、阴历月份(如果是初一)、阴历日
@@ -187,35 +191,36 @@ for dateIndex in range(0, len(dates)):
         else:
             lday = date.getLunar().getJieQi()
         lclass = 'lunar red'
-        if (len(lday) == 0):
+        if len(lday) == 0:
             # 如果是初一则显示阴历月份，否则显示阴历日
-            if (date.getLunar().getDayInChinese() == '初一'):
-                lday = date.getLunar().getMonthInChinese()
+            if date.getLunar().getDayInChinese() == '初一':
+                lday = date.getLunar().getMonthInChinese() + "月"
                 lclass = 'lunar red'
             else:
                 lday = date.getLunar().getDayInChinese()
                 lclass = 'lunar'
-        rows += "<td><div>" + str(date.getDay()) + "</div><div class=\"" + str(
+        rows += "<td><div>" + str(
+            date.getDay()) + "</div><div class=\"" + str(
             lclass) + "\">" + str(lday) + "</div></td>"
 
         # 如果是这个月的最后一天，那么这一行后面的日期要留为空白
-        if (isLastDayOfMonth(date.getMonth(), date.getDay())):
-            for emptyDay in range(date.getWeek(), 6):
+        if isLastDayOfMonth(date.getMonth(), date.getDay()):
+            for emptyDay in range(weekday, 6):
                 rows = rows + '<td></td>'
                 rows = rows + '</tr>'
             monthly.append(table.replace('{{rows}}', rows))
-        elif (date.getWeek() == 6):
+        elif weekday == 6:
             rows = rows + '</tr>'
 
     # 生成后面的7天一页的日历
-    if (date.getWeek() == 0 or len(page) == 0):
-        if (PUNCHED):
+    if weekday == 0 or len(page) == 0:
+        if PUNCHED:
             page = pageTemplate.replace('{{pclass}}', 'page punched')
         else:
             page = pageTemplate.replace('{{pclass}}', 'page')
 
         # 判断是否生成QR
-        if (QR):
+        if QR:
             page = page.replace('{{fclass}}', 'show_qr')
         else:
             page = page.replace('{{fclass}}', 'hide_qr')
@@ -233,8 +238,8 @@ for dateIndex in range(0, len(dates)):
         else:
             ldata = date.getLunar().getJieQi()
         mlclass = 'main-lunar red'
-        if (len(ldata) == 0):
-            if (date.getLunar().getMonthInChinese() == '初一'):
+        if len(ldata) == 0:
+            if date.getLunar().getMonthInChinese() == '初一':
                 mlclass = 'main-lunar red'
                 ldata = date.getLunar().getMonthInChinese()
             else:
@@ -245,14 +250,14 @@ for dateIndex in range(0, len(dates)):
         page = page.replace('{{mlclass}}', mlclass)
 
         # 周六或者周日为红色
-        if (date.getWeek() == 0 or date.getWeek() == 6):
+        if weekday == 5 or weekday == 6:
             page = page.replace('{{mclass}}', 'main-date red')
         else:
             page = page.replace('{{mclass}}', 'main-date')
 
         # 代码部分替换
-        if (langIndex < len(langs)):
-            if (langs[langIndex]['lang'] == 'CSS'):
+        if langIndex < len(langs):
+            if langs[langIndex]['lang'] == 'CSS':
                 page = page.replace(
                     '{{code}}', langs[langIndex]['code'].replace(
                         '2018-03-25',
@@ -263,50 +268,51 @@ for dateIndex in range(0, len(dates)):
             # 代码名称替换
             page = page.replace('{{lang}}', langs[langIndex]['lang'])
 
-            if (langs[langIndex]['class'] in HIGHLIGHT):
+            if langs[langIndex]['class'] in HIGHLIGHT:
                 page = page.replace('{{class}}',
                                     'language-' + langs[langIndex]['class'])
             else:
                 page = page.replace('{{class}}', langs[langIndex]['class'])
 
             page = page.replace('{{desc}}', langs[langIndex]['descWiki'])
-            if (QR):
-                wiki_url = 'https://zh.wikipedia.org/wiki/' + langs[langIndex][
-                    'desc']
+            if QR:
+                wiki_url = 'https://zh.wikipedia.org/wiki/' + quote(langs[langIndex][
+                                                                        'desc'], 'utf-8')
                 # qr = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + wiki_url
                 qr = 'https://chart.apis.google.com/chart?chs=360x360&cht=qr&choe=UTF-8&chld=M|0&chl=' + wiki_url
             else:
                 qr = 'data:image/gif;base64,R0lGODlhAQABAAAAACw='
             page = page.replace('{{qr}}', qr)
             langIndex = langIndex + 1
-    else:
-        page = page.replace('{{week' + str(date.getWeek()) + '}}', weeks[date.getWeek()])
-        page = page.replace(f'{{{{date{date.getWeek()}}}}}',  # 此处用fstring时一定要注意{要进行转义
-                            str(date.getMonth()).zfill(2) + "-" + str(date.getDay()).zfill(2))
-        if (str(date.getMonth()).zfill(2) + str(date.getDay()).zfill(2)
-                in festivals.keys()):
-            ldata = festivals[str(date.getMonth()).zfill(2) +
-                              str(date.getDay()).zfill(2)]
-        else:
-            ldata = date.getLunar().getJieQi()
-        lclass = 'lunar red'
-        if len(ldata) == 0:
-            if date.getLunar().getMonthInChinese() == '初一':
-                lclass = 'lunar red'
-                ldata = date.getLunar().getMonthInChinese()
-            else:
-                lclass = 'lunar'
-                ldata = date.getLunar().getDayInChinese()
 
-        page = page.replace('{{ldate' + str(date.getWeek()) + '}}', ldata)
-        page = page.replace('{{lclass' + str(date.getWeek()) + '}}', lclass)
+    page = page.replace('{{week' + str(weekday + 1) + '}}', weeks[date.getWeek()])
+    page = page.replace('{{wclass' + str(weekday + 1) + '}}', '')
+    page = page.replace(f'{{{{date{weekday + 1}}}}}',  # 此处用fstring时一定要注意{要进行转义
+                        str(date.getMonth()).zfill(2) + "-" + str(date.getDay()).zfill(2))
+    if (str(date.getMonth()).zfill(2) + str(date.getDay()).zfill(2)
+            in festivals.keys()):
+        ldata = festivals[str(date.getMonth()).zfill(2) +
+                          str(date.getDay()).zfill(2)]
+    else:
+        ldata = date.getLunar().getJieQi()
+    lclass = 'lunar red'
+    if len(ldata) == 0:
+        if date.getLunar().getMonthInChinese() == '初一':
+            lclass = 'lunar red'
+            ldata = date.getLunar().getMonthInChinese()
+        else:
+            lclass = 'lunar'
+            ldata = date.getLunar().getDayInChinese()
+
+    page = page.replace('{{ldate' + str(weekday + 1) + '}}', ldata)
+    page = page.replace('{{lclass' + str(weekday + 1) + '}}', lclass)
 
     # 换页或者到12月的最后一天,需要将没有填入日期的空格清空
-    if (date.getWeek() == 6 or dateIndex == len(dates) - 1):
-        for i in range(0, 6):
-            page = page.replace(f'{{{{week{i + 1}}}}}', '')
+    if weekday == 6 or dateIndex == len(dates) - 1:
+        for i in range(0, 7):
             page = page.replace(f'{{{{date{i + 1}}}}}', '')
             page = page.replace(f'{{{{ldate{i + 1}}}}}', '')
+            page = page.replace(f'{{{{wclass{i + 1}}}}}', 'hide')
         weekly.append(page)
         page = ''
         pageIndex += 1
@@ -320,7 +326,7 @@ for j in range(0, len(weekly)):
     calContent += weekly[j]
 cal = calTemplate.replace('{{page}}', calContent)
 
-output_name='Calendar-'+str(YEAR)+'.html'
+output_name = 'Calendar-' + str(YEAR) + '.html'
 out = open(output_name, 'w', encoding='utf8')
 out.write(cal)
 out.close()
