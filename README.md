@@ -23,6 +23,12 @@ Python 3 (Python 3.9.1)
 
 除此之外，因为项目需要爬取维基百科中对编程语言的介绍，所以需要可以访问维基百科。
 
+如遇`Caused by SSLError`错误，是urllib3版本的问题，可以换用 1.25.11或者其他低版本，在原环境中重装低版本urllib3：
+
+```python
+pip install urllib3==1.25.11
+```
+
 ## 配置文件
 
 在`config.json`中有以下参数可以配置：
