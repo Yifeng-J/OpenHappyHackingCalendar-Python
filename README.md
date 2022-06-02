@@ -4,8 +4,8 @@
 ## 结果展示
 
 HTML样式展示：
-- [link](./Calendar-2021.html)
-- [link](./Calendar-2022.html)
+- [2021](./Calendar-2021.html)
+- [2022](./Calendar-2022.html)
 
 ## 环境依赖
 
@@ -42,4 +42,4 @@ pip install urllib3==1.25.11
 
 下载程序→安装好环境→运行index.py
 
-输出为`Calendar-[YYYY].html`。
+输出为`Calendar-[YYYY].html`，您可以用“打印”的方式将其转换为PDF格式文件。
