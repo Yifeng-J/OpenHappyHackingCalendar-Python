@@ -4,8 +4,8 @@
 ## 结果展示
 
 HTML样式展示：
-- [2021](./Calendar-2021.html)
-- [2022](./Calendar-2022.html)
+- [2021](https://github.lzc.app/OHHC-Python/Calendar-2021.html)
+- [2022](https://github.lzc.app/OHHC-Python/Calendar-2022.html)
 
 ## 环境依赖
 
