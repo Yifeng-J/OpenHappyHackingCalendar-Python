@@ -159,7 +159,7 @@ body {
 .page .description {
     position: absolute;
     width: 130mm;
-    bottom: 70mm;
+    bottom: 90mm;
     color: #666;
     text-align: justify;
     font-size: 0.8em;
@@ -190,7 +190,7 @@ body {
 
 .page ul.date {
     width: 174.5mm;
-    height: 41mm;
+    height: 50mm;
     position: absolute;
     display: table;
     left: 17.5mm;
@@ -211,6 +211,7 @@ body {
     list-style: none;
     display: table-cell;
     height: 40mm;
+    width: 30mm;
     border-left: 0.5mm dotted gray;
     box-sizing: border-box;
     vertical-align: top;
