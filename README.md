@@ -7,11 +7,13 @@ HTML样式展示：
 
 - [2022](https://github.lzc.app/OHHC-Python/Calendar-2022.html)
 - [2023](https://github.lzc.app/OHHC-Python/Calendar-2023.html)
+- [2024](https://github.lzc.app/OHHC-Python/Calendar-2024.html)
 
 PDF样式展示：
 
 - [2022](https://github.lzc.app/OHHC-Python/Calendar-2022.pdf)
 - [2023](https://github.lzc.app/OHHC-Python/Calendar-2023.pdf)
+- [2024](https://github.lzc.app/OHHC-Python/Calendar-2024.pdf)
 
 ## 环境依赖
 
