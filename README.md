@@ -3,9 +3,17 @@
 
 ## 结果展示
 
-HTML样式展示：[link](./Calendar-2021.html)
+HTML样式展示：
 
-PDF样式展示：[link](./Calendar-2021.pdf)
+- [2022](https://github.lzc.app/OHHC-Python/Calendar-2022.html)
+- [2023](https://github.lzc.app/OHHC-Python/Calendar-2023.html)
+- [2024](https://github.lzc.app/OHHC-Python/Calendar-2024.html)
+
+PDF样式展示：
+
+- [2022](https://github.lzc.app/OHHC-Python/Calendar-2022.pdf)
+- [2023](https://github.lzc.app/OHHC-Python/Calendar-2023.pdf)
+- [2024](https://github.lzc.app/OHHC-Python/Calendar-2024.pdf)
 
 ## 环境依赖
 
@@ -23,6 +31,12 @@ Python 3 (Python 3.9.1)
 
 除此之外，因为项目需要爬取维基百科中对编程语言的介绍，所以需要可以访问维基百科。
 
+如遇`Caused by SSLError`错误，是urllib3版本的问题，可以换用 1.25.11或者其他低版本，在原环境中重装低版本urllib3：
+
+```python
+pip install urllib3==1.25.11
+```
+
 ## 配置文件
 
 在`config.json`中有以下参数可以配置：
@@ -36,4 +50,4 @@ Python 3 (Python 3.9.1)
 
 下载程序→安装好环境→运行index.py
 
-输出为类似`Calendar-2021.html`的文件
+输出为`Calendar-[YYYY].html`，您可以用“打印”的方式将其转换为PDF格式文件。
