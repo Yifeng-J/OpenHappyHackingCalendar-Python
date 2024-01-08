@@ -76,7 +76,7 @@
 }, {
     "lang": "Swift",
     "class": "swift",
-    "desc": "Swift_(程式語言)",
+    "desc": "Swift語言",
     "code": "swift"
 }, {
     "lang": "MATLAB",
@@ -161,7 +161,7 @@
 }, {
     "lang": "Julia",
     "class": "julia",
-    "desc": "Julia_(编程语言)",
+    "desc": "Julia语言",
     "code": "jl"
 }, {
     "lang": "AppleScript",
