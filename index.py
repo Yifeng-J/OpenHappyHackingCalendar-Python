@@ -74,10 +74,10 @@ def isLeapYear(year):
 
 
 # 判断day是否是month的最后一天
-def isLastDayOfMonth(month, day):
-    if month == 2 and isLeapYear(YEAR):
-        return day == leapDay
-    return day == monthLastDayMapping[month]
+def isLastDayOfMonth(num_month, num_day):
+    if num_month == 2 and isLeapYear(YEAR):
+        return num_day == leapDay
+    return num_day == monthLastDayMapping[num_month]
 
 
 if isLeapYear(YEAR):
@@ -101,7 +101,7 @@ for date in dates:
         festivals[month.zfill(2) + day.zfill(2)] = f[0]
 
 # 在这里增加想要添加的节日，可以覆盖掉上面的节日
-festivals['0101'] = '元旦'
+# festivals['0101'] = '元旦'
 
 res = []
 langs = []
@@ -110,8 +110,7 @@ while langIndex < len(lang_json):
     codeLang = lang_json[langIndex]
     try:
         url = 'https://zh.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&uselang=zh-cn&titles=' + \
-              quote(codeLang[
-                        'desc'], 'utf-8')
+              quote(codeLang['desc'], 'utf-8')
         # 请求头部
         headers = {
             'User-Agent':
@@ -123,14 +122,13 @@ while langIndex < len(lang_json):
         # 读取响应，获得文本
         wiki = json.loads(response.text)
         desc = jsonpath.jsonpath(wiki, '$..extract')
-        codeLang['descWiki'] = desc[0].split('\n')[0]
+        # codeLang['descWiki'] = desc[0].split('\n')[0]
+        codeLang['descWiki'] = desc[0].split('。')[0] + "。"
         langIndex = langIndex + 1
     except Exception as e:
-        print("!!!!!!!error!!!!!!!!!!", e)
+        print("Error!", e)
         continue
-    code_string = open('hacking-date/HackingDate.' + codeLang['code'],
-                       'r',
-                       encoding='utf8')
+    code_string = open('hacking-date/HackingDate.' + codeLang['code'], 'r', encoding='utf8')
     # 对内容中的特殊符合进行转义，以在HTML中显示
     codeLang['code'] = html.escape(code_string.read())
     langs.append(codeLang)
@@ -213,6 +211,7 @@ for dateIndex in range(0, len(dates)):
             rows = rows + '</tr>'
 
     # 生成后面的7天一页的日历
+    # noinspection PyUnboundLocalVariable
     if weekday == 0 or len(page) == 0:
         if PUNCHED:
             page = pageTemplate.replace('{{pclass}}', 'page punched')
@@ -231,6 +230,7 @@ for dateIndex in range(0, len(dates)):
         )
         page = page.replace('{{main-week}}', f'{weeks[date.getWeek()]}')
         page = page.replace('{{mwclass}}', 'main-week')
+        # noinspection DuplicatedCode
         if (str(date.getMonth()).zfill(2) + str(date.getDay()).zfill(2)
                 in festivals.keys()):
             ldata = festivals[str(date.getMonth()).zfill(2) +
@@ -276,8 +276,7 @@ for dateIndex in range(0, len(dates)):
 
             page = page.replace('{{desc}}', langs[langIndex]['descWiki'])
             if QR:
-                wiki_url = 'https://zh.wikipedia.org/wiki/' + quote(langs[langIndex][
-                                                                        'desc'], 'utf-8')
+                wiki_url = 'https://zh.wikipedia.org/wiki/' + quote(langs[langIndex]['desc'], 'utf-8')
                 # qr = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + wiki_url
                 qr = 'https://chart.apis.google.com/chart?chs=360x360&cht=qr&choe=UTF-8&chld=M|0&chl=' + wiki_url
             else:
@@ -289,6 +288,7 @@ for dateIndex in range(0, len(dates)):
     page = page.replace('{{wclass' + str(weekday + 1) + '}}', '')
     page = page.replace(f'{{{{date{weekday + 1}}}}}',  # 此处用fstring时一定要注意{要进行转义
                         str(date.getMonth()).zfill(2) + "-" + str(date.getDay()).zfill(2))
+    # noinspection DuplicatedCode
     if (str(date.getMonth()).zfill(2) + str(date.getDay()).zfill(2)
             in festivals.keys()):
         ldata = festivals[str(date.getMonth()).zfill(2) +
