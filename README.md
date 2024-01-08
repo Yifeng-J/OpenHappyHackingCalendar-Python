@@ -50,6 +50,6 @@ pip install urllib3==1.25.11
 
 ## 运行
 
-下载程序→安装好环境→运行index.py
+下载程序 → 安装好环境 → 运行index.py
 
 输出为`Calendar-[YYYY].html`，您可以用“打印”的方式将其转换为PDF格式文件。
