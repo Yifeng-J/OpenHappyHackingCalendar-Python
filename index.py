@@ -129,7 +129,7 @@ while langIndex < len(lang_json):
         print("Error!", e)
         continue
     code_string = open('hacking-date/HackingDate.' + codeLang['code'], 'r', encoding='utf8')
-    # 对内容中的特殊符合进行转义，以在HTML中显示
+    # 对内容中的特殊符号进行转义，以在HTML中显示
     codeLang['code'] = html.escape(code_string.read())
     langs.append(codeLang)
 
